@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { SiteHeader } from "@/components/site-header";
+import { LocaleProvider } from "@/lib/i18n/context";
+import { brandName } from "@/lib/brand";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -14,8 +17,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Vercel AI SDK Tutorial",
-  description: "Learn how to build AI applications with the Vercel AI SDK",
+  title: brandName,
+  description:
+    "AI-powered tools for summarization, data extraction and chat.",
 };
 
 export default function RootLayout({
@@ -24,11 +28,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}
       >
-        {children}
+        <LocaleProvider>
+          <SiteHeader />
+          {children}
+        </LocaleProvider>
       </body>
     </html>
   );

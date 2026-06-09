@@ -20,7 +20,14 @@ const summarySchema = z.object({
     ),
 });
 
-export const generateSummary = async (comments: any[]) => {
+type Comment = {
+  id: number;
+  author: { name: string; initials: string; avatarSrc: string };
+  timestamp: string;
+  content: string;
+};
+
+export const generateSummary = async (comments: Comment[]) => {
   console.log("Generating summary for", comments.length, "comments...");
 
   const { output: summary } = await generateText({
